@@ -6,6 +6,8 @@ package MooseX::InsideOut;
 use metaclass 'MooseX::InsideOut::Meta::Class';
 use Moose;
 
+our $VERSION = '0.001';
+
 1;
 __END__
 
@@ -16,10 +18,6 @@ MooseX::InsideOut - inside-out objects with Moose
 =head1 VERSION
 
 Version 0.001
-
-=cut
-
-our $VERSION = '0.001';
 
 =head1 SYNOPSIS
 
