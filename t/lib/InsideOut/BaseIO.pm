@@ -3,8 +3,7 @@ use warnings;
 
 package InsideOut::BaseIO;
 
-use Moose;
-extends 'MooseX::InsideOut';
+use MooseX::InsideOut;
 
 has base_foo => (
   is => 'rw',
