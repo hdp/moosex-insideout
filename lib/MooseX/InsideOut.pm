@@ -7,7 +7,7 @@ use MooseX::InsideOut::Meta::Class;
 BEGIN { require Moose }
 use Carp;
 
-our $VERSION = '0.002';
+our $VERSION = '0.003';
 
 sub import {
   my $class = shift;
@@ -38,7 +38,7 @@ MooseX::InsideOut - inside-out objects with Moose
 
 =head1 VERSION
 
-Version 0.002
+Version 0.003
 
 =head1 SYNOPSIS
 
