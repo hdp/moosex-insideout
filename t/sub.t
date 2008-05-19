@@ -5,10 +5,6 @@ use Test::More tests => 28;
 use lib 't/lib';
 my @classes = qw(IO Array Hash Moose);
 
-my %TODO = (
-#  Moose => "don't clobber superclass' meta's create_instance",
-);
-
 for my $c (@classes) {
   my $base = "InsideOut::Base$c";
   my $sub  = "InsideOut::Sub$c";
@@ -18,21 +14,21 @@ for my $c (@classes) {
   my $obj = eval { $sub->new(base_foo => 17) };
   is($@, "", "$c: no errors creating object");
 
+  my $get = eval { $obj->base_foo };
+  is($@, "", "$c: no errors getting attribute");
   {
-    local $TODO = $TODO{$c} if exists $TODO{$c};
-      
-    my $get = eval { $obj->base_foo };
-    is($@, "", "$c: no errors getting attribute");
+    local $TODO = "don't clobber superclass' meta's create_instance"
+      if $c eq 'Moose';
     is($get, 17, "$c: base_foo is 17");
-
-    my $set_base = eval {
-      $obj->base_foo(18);
-      $obj->base_foo;
-    };
-    is($@, "", "$c: no errors setting base class attribute");
-    is($set_base, 18, "$c: base_foo is 18");
   }
-    
+
+  my $set_base = eval {
+    $obj->base_foo(18);
+    $obj->base_foo;
+  };
+  is($@, "", "$c: no errors setting base class attribute");
+  is($set_base, 18, "$c: base_foo is 18");
+  
   my $set_sub = eval {
     $obj->sub_foo(23);
     $obj->sub_foo;
