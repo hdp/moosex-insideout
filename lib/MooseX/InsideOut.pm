@@ -4,28 +4,23 @@ use warnings;
 package MooseX::InsideOut;
 # ABSTRACT: inside-out objects with Moose
 
-use MooseX::InsideOut::Meta::Class;
-BEGIN { require Moose }
-use Carp;
+use Moose ();
+use Moose::Exporter;
+use Moose::Util::MetaRole;
+use MooseX::InsideOut::Role::Meta::Instance;
 
-sub import {
-  my $class = shift;
-  
-  if (@_) { Carp::confess "$class has no exports" }
+Moose::Exporter->setup_import_methods(
+  also => [ 'Moose' ],
+);
 
-  my $into = caller;
-
-  return if $into eq 'main';
-
-  Moose::init_meta(
-    $into,
-    'Moose::Object',
-    'MooseX::InsideOut::Meta::Class',
+sub init_meta {
+  shift;
+  my %p = @_;
+  Moose->init_meta(%p);
+  Moose::Util::MetaRole::apply_metaclass_roles(
+    for_class                => $p{for_class},
+    instance_metaclass_roles => [ 'MooseX::InsideOut::Role::Meta::Instance' ],
   );
-
-  Moose->import({ into => $into });
-
-  return;
 }
 
 1;
@@ -42,22 +37,19 @@ __END__
 
   package My::Subclass;
 
-  use metaclass 'MooseX::InsideOut::Meta::Class';
-  use Moose;
+  use MooseX::InsideOut;
   extends 'Some::Other::Class';
 
 =head1 DESCRIPTION
 
-MooseX::InsideOut provides a metaclass and an instance metaclass for inside-out
-objects.
+MooseX::InsideOut provides metaroles for inside-out objects.  That is, it sets
+up attribute slot storage somewhere other than inside C<$self>.  This means
+that you can extend non-Moose classes, whose internals you either don't want to
+care about or aren't hash-based.
 
-You can use MooseX::InsideOut, as in the first example in the L</SYNOPSIS>.
-This sets up the metaclass and instance metaclass for you, as well as importing
-all of the normal Moose goodies.
+=method init_meta
 
-You can also use the metaclass C<MooseX::InsideOut::Meta::Class> directly, as
-in the second example.  This is most useful when extending a non-Moose class,
-whose internals you either don't want to care about or aren't hash-based.
+Apply the instance metarole necessary for inside-out storage.
 
 =head1 TODO
 
