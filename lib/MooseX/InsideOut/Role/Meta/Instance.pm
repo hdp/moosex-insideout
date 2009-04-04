@@ -52,7 +52,7 @@ around inline_create_instance => sub {
   my $next = shift;
   my ($self, $class_variable) = @_;
   my $code = $self->$next($class_variable);
-  $code = "do { {my \$instance = ($code);";
+  $code = "do { my \$instance = ($code);";
   $code .= sprintf(
     '$%s::attr{Scalar::Util::refaddr($instance)} = {};',
     __PACKAGE__,

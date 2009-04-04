@@ -1,6 +1,6 @@
 use strict;
 use warnings;
-use Test::More tests => 28;
+use Test::More tests => 56;
 
 use lib 't/lib';
 my @classes = qw(IO Array Hash Moose);
@@ -40,4 +40,5 @@ for my $c (@classes) {
 #  use Data::Dumper;
 #  diag Dumper($obj);
 
+  $sub->meta->make_immutable, redo if $sub->meta->is_mutable;
 }
