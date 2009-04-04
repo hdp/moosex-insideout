@@ -3,8 +3,7 @@ use warnings;
 
 package InsideOut::SubMoose;
 
-use metaclass 'MooseX::InsideOut::Meta::Class';
-use Moose;
+use MooseX::InsideOut;
 extends 'InsideOut::BaseMoose';
 
 has sub_foo => ( is => 'rw' );
