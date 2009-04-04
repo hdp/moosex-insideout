@@ -1,5 +1,9 @@
 Revision history for MooseX-InsideOut
 
+0.101   Sat, 04 Apr 2009 12:32:03 -0400
+
+  * fix and test inlining
+
 0.100   Sat, 04 Apr 2009 01:42:14 -0400
 
   * major incompatible update for modern Moose; see POD for new usage
