@@ -1,5 +1,9 @@
 Revision history for MooseX-InsideOut
 
+0.103   Mon, 27 Apr 2009 11:22:28 -0400
+
+  * avoid warnings with latest Moose
+
 0.102   Sat, 04 Apr 2009 16:43:59 -0400
 
   * add prereq for namespace::clean

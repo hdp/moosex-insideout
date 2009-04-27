@@ -40,5 +40,7 @@ for my $c (@classes) {
 #  use Data::Dumper;
 #  diag Dumper($obj);
 
-  $sub->meta->make_immutable, redo if $sub->meta->is_mutable;
+  $sub->meta->make_immutable(
+    inline_constructor => ($c ne 'Hash' and $c ne 'Array')
+  ), redo if $sub->meta->is_mutable;
 }
