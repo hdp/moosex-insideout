@@ -41,6 +41,7 @@ for my $c (@classes) {
 #  diag Dumper($obj);
 
   $sub->meta->make_immutable(
+    allow_mutable_ancestors => 1,
     inline_constructor => ($c ne 'Hash' and $c ne 'Array')
   ), redo if $sub->meta->is_mutable;
 }
