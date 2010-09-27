@@ -17,9 +17,11 @@ sub init_meta {
   shift;
   my %p = @_;
   Moose->init_meta(%p);
-  Moose::Util::MetaRole::apply_metaclass_roles(
-    for_class                => $p{for_class},
-    instance_metaclass_roles => [ 'MooseX::InsideOut::Role::Meta::Instance' ],
+  Moose::Util::MetaRole::apply_metaroles(
+    for             => $p{for_class},
+    class_metaroles => {
+        instance => [ 'MooseX::InsideOut::Role::Meta::Instance' ],
+    },
   );
 }
 
