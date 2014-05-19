@@ -1,5 +1,8 @@
 Revision history for MooseX-InsideOut
 
+0.105   Mon, 27 Sep 2010 15:06:30 -0400
+  * avoid warnings with latest Moose
+
 0.104   Thu, 10 Sep 2009 22:12:11 -0400
 
   * avoid warnings with latest Moose
